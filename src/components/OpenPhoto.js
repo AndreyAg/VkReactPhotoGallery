@@ -30,7 +30,7 @@ export default class OpenPhoto extends Component {
         }
     }
 
-    navigatePhoto = (direction) => {
+    navigatePhoto(direction) {
         this.actions.navigatePhoto(this.data.openPhoto.id, direction)
     }
 
@@ -52,8 +52,8 @@ export default class OpenPhoto extends Component {
         return <div className='open' style={style}>
             {this.data.openPhoto.text ? <div className='text'>{this.data.openPhoto.text}</div> : null}
             <div className='close' onClick={::this.closePhoto}>×</div>
-            <div className='left' onClick={::this.navigatePhoto.bind(NAVIGATE_PHOTO_LEFT)}>←</div>
-            <div className='right' onClick={::this.navigatePhoto.bind(NAVIGATE_PHOTO_RIGHT)}>→</div>
+            <div className='left' onClick={::this.navigatePhoto.bind(this, NAVIGATE_PHOTO_LEFT)}>←</div>
+            <div className='right' onClick={::this.navigatePhoto.bind(this, NAVIGATE_PHOTO_RIGHT)}>→</div>
         </div>
     }
 }
