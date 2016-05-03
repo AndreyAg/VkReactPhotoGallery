@@ -1,0 +1,69 @@
+div.photos {
+  clear: both;
+
+  div.photo {
+    float: left;
+    height:75px;
+    overflow:hidden;
+    display:block;
+    margin:0 1px 1px 0;
+    border:1px solid #fff;
+    border-radius:6px;
+    background:#eee;
+
+    img {
+      width:128px;
+    }
+
+    transition: all .2s ease;
+    &:hover {
+      transform: scale(1.6);
+      cursor: pointer;
+    }
+
+  }
+}
+
+div.open {
+  position:fixed;
+  border:10px solid #fff;
+  border-radius:30px;
+  background:#fff;
+  padding:5px;
+  left: 0;
+  right: 0;
+  margin: 10px auto;
+  background-size:contain;
+  background-repeat: no-repeat;
+  z-index: 100;
+
+  div.close {
+    font-size:30px;
+    position: absolute;
+    color:#fff;
+    right: 12px;
+    top:0;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    cursor: pointer;
+  }
+
+  div.left {
+    position:absolute;
+    bottom: 4px;
+    font-size: 30px;
+    color:#fff;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    cursor: pointer;
+  }
+
+  div.right {
+    position:absolute;
+    bottom: 4px;
+    right:4px;
+    font-size: 30px;
+    color:#fff;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    cursor: pointer;
+  }
+
+}
