@@ -48,7 +48,7 @@ export function navigatePhoto(id, direction) {
         let i = state.photos.items.findIndex(x => x.id == id)
         if((i>0 && isLeftDirection) || !isLeftDirection) {
             if(!isLeftDirection && i+1 >= state.photos.items.length) {
-                if(state.photos.isLoadedAll) {
+                if(state.photos.fetching || state.photos.isLoadedAll) {
                     return
                 }
                 return dispatch(getPhotos()).then(()=> {
