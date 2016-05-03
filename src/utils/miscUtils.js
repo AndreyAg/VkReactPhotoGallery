@@ -8,29 +8,29 @@ export default class MiscUtils {
         return Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
     }
 
-    static getPictureViewportSize(iW, iH) {
+    static getPictureViewportSize(imageWidth, imageHeight) {
 
-        if(!iW && !iH) {
-            iW = 604
-            iH = 453
+        if(!imageWidth && !imageHeight) {
+            imageWidth = 604
+            imageHeight = 453
         }
 
-        let oH = this.getViewportHeight() - 65
-        let oW = this.getViewportWidth() - 50
+        let viewportHeight = this.getViewportHeight() - 65
+        let viewportWidth = this.getViewportWidth() - 50
         let width, height
 
-        if(iW>oW || iH>oH){
-            if(oH/iH > oW/iW){
-                width = oW
-                height = iH*(oW/iW)
+        if(imageWidth>viewportWidth || imageHeight>viewportHeight){
+            if(viewportHeight/imageHeight > viewportWidth/imageWidth){
+                width = viewportWidth
+                height = imageHeight*(viewportWidth/imageWidth)
             } else {
-                height = oH
-                width = iW*(oH/iH)
+                height = viewportHeight
+                width = imageWidth*(viewportHeight/imageHeight)
             }
         }
         else {
-            width = iW
-            height = iH
+            width = imageWidth
+            height = imageHeight
         }
 
         return {width, height}

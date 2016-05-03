@@ -20,7 +20,6 @@ export default class OpenPhoto extends Component {
 
     handleKeyPress = (e) => {
         let keyCode = e.keyCode
-        console.log(keyCode)
         if(keyCode == 37 || keyCode == 39) {
             e.preventDefault();
             this.navigatePhoto(keyCode == 37 ? NAVIGATE_PHOTO_LEFT : NAVIGATE_PHOTO_RIGHT)
