@@ -8,11 +8,9 @@ export default class AjaxUtils {
             if (response.status >= 200 && response.status < 300) {
                 return response
             } else {
-                dispatch({
-                    type: failType,
-                    payload: new Error(response.statusText),
-                    error: true
-                })
+                var error = new Error(response.statusText)
+                error.response = response
+                throw error
             }
         }
 
@@ -20,7 +18,7 @@ export default class AjaxUtils {
             return response.json()
         }
 
-        return fetch('//' + location.hostname + ':5555', {
+        return fetch('//' + location.hostname, {
             method: 'POST',
             body: body ? JSON.stringify(body) : null
         })
