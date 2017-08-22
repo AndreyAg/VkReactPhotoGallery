@@ -5,11 +5,23 @@ import App from './containers/App'
 import './styles/app.less'
 import configureStore from './store/configureStore'
 
-const store = configureStore();
+const store = configureStore()
 
-render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
-    document.getElementById('root')
-);
+function startApp() {
+    render(
+        <Provider store={store}>
+            <App />
+        </Provider>,
+        document.getElementById('root')
+    )
+}
+
+if(!window.fetch) {
+    require.ensure([], () => {
+        require('whatwg-fetch')
+        startApp()
+    })
+}
+else {
+    startApp()
+}

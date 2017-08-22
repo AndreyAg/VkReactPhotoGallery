@@ -1,5 +1,3 @@
-import 'whatwg-fetch'
-
 export default class AjaxUtils {
 
     static fetchPost(dispatch, body, successType, failType) {
@@ -18,7 +16,7 @@ export default class AjaxUtils {
             return response.json()
         }
 
-        return fetch('//' + location.hostname, {
+        return fetch('//' + location.hostname + '/photos.php' , {
             method: 'POST',
             body: body ? JSON.stringify(body) : null
         })

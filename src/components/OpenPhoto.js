@@ -11,11 +11,12 @@ export default class OpenPhoto extends Component {
     constructor(props) {
         super(props)
         this.actions = this.props.store.photosActions
-        window.addEventListener('keypress', this.handleKeyPress)
+        window.addEventListener('keydown', this.handleKeyPress)
+
     }
 
     componentWillUnmount() {
-        window.removeEventListener('keypress', this.handleKeyPress)
+        window.removeEventListener('keydown', this.handleKeyPress)
     }
 
     handleKeyPress = (e) => {
