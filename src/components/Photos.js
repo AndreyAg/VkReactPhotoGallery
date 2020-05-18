@@ -1,46 +1,40 @@
-import React, { PropTypes, Component } from 'react'
-import Photo from './Photo'
-import Spinner from './Spinner'
+import React, {useEffect} from 'react'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import MiscUtils from '../utils/miscUtils'
 
-export default class Photos extends Component {
+import Photo from './Photo'
+import Spinner from './Spinner'
+import * as photosActions from "../actions/PhotosActions"
+import OpenPhoto from "./OpenPhoto"
 
-    data = null
-    actions = null
+const Photos = ({photos, photosActions}) => {
 
-    constructor(props) {
-        super(props)
-        this.actions = this.props.store.photosActions
-        window.addEventListener('scroll', this.handleScroll)
-        let initCount = Math.round(MiscUtils.getViewportWidth() / 128 * MiscUtils.getViewportHeight() / 75)
-        this.loadPhotos(initCount)
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll)
-    }
-
-    handleScroll = () => {
-        if((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
-            this.actions.getPhotos()
+    const handleScroll = () => {
+        if (window.innerHeight + window.scrollY >= MiscUtils.getDocumentHeight()) {
+            photosActions.getPhotos()
         }
     }
 
-    loadPhotos(initCount) {
-        this.actions.getPhotos(initCount)
-    }
+    useEffect(() => {
+        photosActions.getPhotos(Math.round(MiscUtils.getViewportWidth() / 128 * MiscUtils.getViewportHeight() / 75))
+        window.addEventListener('scroll', handleScroll)
+        return () => {
+            window.removeEventListener('scroll', this.handleScroll)
+        }
+    }, [])
 
-    render() {
-        this.data = this.props.store.photos
-        return <div className='photos'>
-            {this.data.items.map((v, k) =>
-                <Photo item={v} key={k} actions={this.actions} />
-            )}
-            <Spinner enable={this.data.fetching} />
+    return <>
+        {photos?.openPhoto ? <OpenPhoto/> : null}
+        <div className='photos'>
+            {photos?.items.map((v, k) => <Photo item={v} key={k} actions={photosActions}/>)}
+            <Spinner enable={photos?.fetching}/>
         </div>
-    }
+    </>
 }
 
-Photos.propTypes = {
-    store: PropTypes.object.isRequired
-}
+export default connect(state => ({
+    photos: state.photos
+}), dispatch => ({
+    photosActions: bindActionCreators(photosActions, dispatch)
+}))(Photos)

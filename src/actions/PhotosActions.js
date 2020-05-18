@@ -7,7 +7,7 @@ export function getPhotos(initCount) {
 
         const state = getState()
 
-        if(state.photos.fetching || state.photos.isLoadedAll) {
+        if (state.photos.fetching || state.photos.isLoadedAll) {
             return
         }
 
@@ -17,7 +17,8 @@ export function getPhotos(initCount) {
 
         return AjaxUtils.fetchPost(dispatch, {
             count: initCount ? initCount : state.photos.count,
-            offset: state.photos.offset}, CONST.GET_PHOTOS_SUCCESS, CONST.GET_PHOTOS_FAIL)
+            offset: state.photos.offset
+        }, CONST.GET_PHOTOS_SUCCESS, CONST.GET_PHOTOS_FAIL)
     }
 }
 
@@ -44,14 +45,14 @@ export function navigatePhoto(id, direction) {
 
         const state = getState()
 
-        let isLeftDirection = direction == CONST.NAVIGATE_PHOTO_LEFT
-        let i = state.photos.items.findIndex(x => x.id == id)
-        if((i>0 && isLeftDirection) || !isLeftDirection) {
-            if(!isLeftDirection && i+1 >= state.photos.items.length) {
-                if(state.photos.fetching || state.photos.isLoadedAll) {
+        let isLeftDirection = direction === CONST.NAVIGATE_PHOTO_LEFT
+        let i = state.photos.items.findIndex(x => x.id === id)
+        if ((i > 0 && isLeftDirection) || !isLeftDirection) {
+            if (!isLeftDirection && i + 1 >= state.photos.items.length) {
+                if (state.photos.fetching || state.photos.isLoadedAll) {
                     return
                 }
-                return dispatch(getPhotos()).then(()=> {
+                return dispatch(getPhotos()).then(() => {
                     dispatch(navigatePhoto(id, direction))
                 })
             }

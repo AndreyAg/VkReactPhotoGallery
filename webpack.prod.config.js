@@ -3,39 +3,31 @@ const webpack = require('webpack')
 const pathToApp = path.resolve(__dirname, 'src')
 
 module.exports = {
-    mode: 'development',
-    devtool: 'cheap-module-eval-source-map',
+    mode: 'production',
     context: path.join(__dirname, 'src'),
-    devServer: {
-        contentBase: pathToApp,
-        compress: true,
-        port: 3000,
-        hot: true,
-        disableHostCheck: true,
-        headers: {
-            'Access-Control-Allow-Origin': '*'
-        }
-    },
     entry: [
         './index'
     ],
     output: {
-        path: `${pathToApp}/.static`,
-        filename: 'bundle.js',
-        publicPath: 'http://0.0.0.0:3000/static/'
+        path: path.join(__dirname, `build`),
+        filename: 'bundle.js'
     },
     module: {
         rules: [{
-            test: /\.js$/,
-            include: [pathToApp],
-            loader: 'eslint-loader'
-        },{
             test: /\.js?$/,
             include: [pathToApp],
             use: {
                 loader: 'babel-loader',
-                query: {
-                    plugins: ['@babel/transform-runtime']
+                options: {
+                    plugins: [
+                        '@babel/transform-runtime',
+                        ["@babel/plugin-proposal-decorators", { "legacy": true }],
+                        "@babel/plugin-proposal-class-properties",
+                        "@babel/plugin-proposal-optional-chaining",
+                        "transform-function-bind",
+                        ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": true}]
+                    ],
+                    presets: ["@babel/preset-env", "@babel/preset-react"]
                 }
             }
         },{
@@ -44,7 +36,7 @@ module.exports = {
                 "style-loader", {
                     loader: 'css-loader',
                     options: {
-                        sourceMap: true
+                        sourceMap: false
                     }
                 },
                 "postcss-loader",
@@ -62,11 +54,10 @@ module.exports = {
         }]
     },
     plugins: [
-        new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
+        new webpack.optimize.AggressiveMergingPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: JSON.stringify('development')
+                NODE_ENV: JSON.stringify('production')
             }
         })
     ]

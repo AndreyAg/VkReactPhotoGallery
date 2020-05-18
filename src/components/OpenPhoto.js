@@ -1,59 +1,57 @@
-import {NAVIGATE_PHOTO_LEFT, NAVIGATE_PHOTO_RIGHT} from '../constants/Photos'
-import React, { Component } from 'react'
+import React, {useEffect} from 'react'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import ArrayUtils from '../utils/arrayUtils'
 import MiscUtils from '../utils/miscUtils'
 
-export default class OpenPhoto extends Component {
+import {NAVIGATE_PHOTO_LEFT, NAVIGATE_PHOTO_RIGHT} from '../constants/Photos'
+import * as photosActions from "../actions/PhotosActions"
 
-    data = null
-    actions = null
+const OpenPhoto = ({photos, photosActions}) => {
 
-    constructor(props) {
-        super(props)
-        this.actions = this.props.store.photosActions
-        window.addEventListener('keydown', this.handleKeyPress)
-
+    const navigatePhoto = direction => {
+        photosActions.navigatePhoto(photos.openPhoto.id, direction)
     }
 
-    componentWillUnmount() {
-        window.removeEventListener('keydown', this.handleKeyPress)
+    const closePhoto = () => {
+        photosActions.closePhoto()
     }
 
-    handleKeyPress = (e) => {
-        let keyCode = e.keyCode
-        if(keyCode == 37 || keyCode == 39) {
-            e.preventDefault();
-            this.navigatePhoto(keyCode == 37 ? NAVIGATE_PHOTO_LEFT : NAVIGATE_PHOTO_RIGHT)
+    useEffect(() => {
+
+        const handleKeyPress = e => {
+            const keyCode = e.keyCode
+            if (keyCode === 37 || keyCode === 39) {
+                navigatePhoto(keyCode === 37 ? NAVIGATE_PHOTO_LEFT : NAVIGATE_PHOTO_RIGHT)
+            } else if (keyCode === 27) {
+                photosActions.closePhoto()
+            }
         }
-        else if(keyCode == 27) {
-            this.closePhoto()
+
+        window.addEventListener('keydown', handleKeyPress)
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyPress)
         }
+    }, [photos.openPhoto.id])
+
+    const photo = ArrayUtils.findObjectByOrder(photos.openPhoto.sizes, 'type', ['w', 'z', 'y', 'x', 'r', 'q', 'p'])
+
+    const style = {
+        backgroundImage: 'url(' + photo.src + ')',
+        ...MiscUtils.getPictureViewportSize(photo.width, photo.height)
     }
 
-    navigatePhoto(direction) {
-        this.actions.navigatePhoto(this.data.openPhoto.id, direction)
-    }
-
-    closePhoto = () => {
-        this.actions.closePhoto()
-    }
-
-    render() {
-
-        this.data = this.props.store.photos
-
-        let photo = ArrayUtils.findObjectByOrder(this.data.openPhoto.sizes, 'type', ['w','z','y','x','r','q','p'])
-
-        let style = {
-            backgroundImage: 'url(' + photo.src + ')',
-            ...MiscUtils.getPictureViewportSize(photo.width, photo.height)
-        };
-
-        return <div className='open' style={style}>
-            {this.data.openPhoto.text ? <div className='text'>{this.data.openPhoto.text}</div> : null}
-            <div className='close' onClick={::this.closePhoto}>×</div>
-            <div className='left' onClick={::this.navigatePhoto.bind(this, NAVIGATE_PHOTO_LEFT)}>←</div>
-            <div className='right' onClick={::this.navigatePhoto.bind(this, NAVIGATE_PHOTO_RIGHT)}>→</div>
-        </div>
-    }
+    return <div className='open' style={style}>
+        {photos.openPhoto.text ? <div className='text'>{photos.openPhoto.text}</div> : null}
+        <div className='close' onClick={closePhoto}>×</div>
+        <div className='left' onClick={navigatePhoto.bind(this, NAVIGATE_PHOTO_LEFT)}>←</div>
+        <div className='right' onClick={navigatePhoto.bind(this, NAVIGATE_PHOTO_RIGHT)}>→</div>
+    </div>
 }
+
+export default connect(state => ({
+    photos: state.photos
+}), dispatch => ({
+    photosActions: bindActionCreators(photosActions, dispatch)
+}))(OpenPhoto)

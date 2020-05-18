@@ -1,13 +1,14 @@
-import React, { PropTypes, Component } from 'react'
+import React from 'react'
 
-export default class Spinner extends Component {
+const Spinner = ({enable}) => {
 
-    render() {
-        const { enable } = this.props
-        return enable ? <div className='spinner'><div /><div /><div /><div /><div /></div> : null
-    }
+    return enable ? <div className='spinner'>
+        <div/>
+        <div/>
+        <div/>
+        <div/>
+        <div/>
+    </div> : null
 }
 
-Spinner.propTypes = {
-    enable: PropTypes.bool.isRequired
-}
+export default Spinner

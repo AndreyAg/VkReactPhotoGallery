@@ -16,24 +16,26 @@ export default class AjaxUtils {
             return response.json()
         }
 
-        return fetch('//' + location.hostname + '/photos.php' , {
+        //const url = '//' + location.hostname + '/photos.php'
+        const url = 'https://vk.andreyag.ru/photos.php'
+
+        return fetch(url, {
             method: 'POST',
             body: body ? JSON.stringify(body) : null
         })
-        .then(checkStatus)
-        .then(parseJSON)
-        .then(function (data) {
-            dispatch({
-                type: successType,
-                payload: data
+            .then(checkStatus)
+            .then(parseJSON)
+            .then(function (data) {
+                dispatch({
+                    type: successType,
+                    payload: data
+                })
+            }).catch(function (err) {
+                dispatch({
+                    type: failType,
+                    payload: new Error(err),
+                    error: true
+                })
             })
-        }).catch(function (err) {
-            dispatch({
-                type: failType,
-                payload: new Error(err),
-                error: true
-            })
-        })
     }
-
 }

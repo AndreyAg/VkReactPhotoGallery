@@ -10,7 +10,7 @@ export default class MiscUtils {
 
     static getPictureViewportSize(imageWidth, imageHeight) {
 
-        if(!imageWidth && !imageHeight) {
+        if (!imageWidth && !imageHeight) {
             imageWidth = 604
             imageHeight = 453
         }
@@ -19,21 +19,28 @@ export default class MiscUtils {
         let viewportWidth = this.getViewportWidth() - 50
         let width, height
 
-        if(imageWidth>viewportWidth || imageHeight>viewportHeight){
-            if(viewportHeight/imageHeight > viewportWidth/imageWidth){
+        if (imageWidth > viewportWidth || imageHeight > viewportHeight) {
+            if (viewportHeight / imageHeight > viewportWidth / imageWidth) {
                 width = viewportWidth
-                height = imageHeight*(viewportWidth/imageWidth)
+                height = imageHeight * (viewportWidth / imageWidth)
             } else {
                 height = viewportHeight
-                width = imageWidth*(viewportHeight/imageHeight)
+                width = imageWidth * (viewportHeight / imageHeight)
             }
-        }
-        else {
+        } else {
             width = imageWidth
             height = imageHeight
         }
 
         return {width, height}
+    }
 
+    static getDocumentHeight() {
+        const {body, documentElement} = document
+        return Math.max(
+            Math.max(body.scrollHeight, documentElement.scrollHeight),
+            Math.max(body.offsetHeight, documentElement.offsetHeight),
+            Math.max(body.clientHeight, documentElement.clientHeight)
+        )
     }
 }

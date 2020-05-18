@@ -1,3 +1,10 @@
 {
-  "presets": ["es2015", "stage-0", "react"] //поддержка ES2015, ES7 и JSX
+  "plugins": [
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-optional-chaining",
+    "transform-function-bind",
+    ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": true}]
+  ],
+  "presets": ["@babel/preset-env", "@babel/preset-react"]
 }
