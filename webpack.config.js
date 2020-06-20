@@ -41,24 +41,13 @@ module.exports = {
         },{
             test: /\.less$/,
             use: [
-                "style-loader", {
-                    loader: 'css-loader',
-                    options: {
-                        sourceMap: true
-                    }
-                },
-                "postcss-loader",
+                'style-loader',
+                'css-loader?url=false',
                 {
-                    loader: 'less-loader',
-                    options: {
-                        javascriptEnabled: true
-                    }
-                }
+                    loader: 'less-loader'
+                },
+                'postcss-loader'
             ]
-        },{
-            test: /\.(graphql|gql)$/,
-            include: [pathToApp],
-            loader: 'graphql-tag/loader'
         }]
     },
     plugins: [

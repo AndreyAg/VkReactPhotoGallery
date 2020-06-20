@@ -2,12 +2,11 @@ import * as CONST from '../constants/Photos'
 import AjaxUtils from '../utils/ajaxUtils'
 
 export function getPhotos(initCount) {
-
     return (dispatch, getState) => {
 
-        const state = getState()
+        const {photos} = getState()
 
-        if (state.photos.fetching || state.photos.isLoadedAll) {
+        if (photos.fetching || photos.isLoadedAll) {
             return
         }
 
@@ -16,8 +15,8 @@ export function getPhotos(initCount) {
         })
 
         return AjaxUtils.fetchPost(dispatch, {
-            count: initCount ? initCount : state.photos.count,
-            offset: state.photos.offset
+            count: initCount ? initCount : photos.count,
+            offset: photos.offset
         }, CONST.GET_PHOTOS_SUCCESS, CONST.GET_PHOTOS_FAIL)
     }
 }
@@ -47,6 +46,7 @@ export function navigatePhoto(id, direction) {
 
         let isLeftDirection = direction === CONST.NAVIGATE_PHOTO_LEFT
         let i = state.photos.items.findIndex(x => x.id === id)
+
         if ((i > 0 && isLeftDirection) || !isLeftDirection) {
             if (!isLeftDirection && i + 1 >= state.photos.items.length) {
                 if (state.photos.fetching || state.photos.isLoadedAll) {
@@ -58,6 +58,5 @@ export function navigatePhoto(id, direction) {
             }
             dispatch(openPhoto(state.photos.items[(isLeftDirection ? --i : ++i)]))
         }
-
     }
 }

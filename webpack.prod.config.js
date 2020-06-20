@@ -41,16 +41,9 @@ module.exports = {
                 },
                 "postcss-loader",
                 {
-                    loader: 'less-loader',
-                    options: {
-                        javascriptEnabled: true
-                    }
+                    loader: 'less-loader'
                 }
             ]
-        },{
-            test: /\.(graphql|gql)$/,
-            include: [pathToApp],
-            loader: 'graphql-tag/loader'
         }]
     },
     plugins: [

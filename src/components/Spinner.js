@@ -1,7 +1,6 @@
 import React from 'react'
 
 const Spinner = ({enable}) => {
-
     return enable ? <div className='spinner'>
         <div/>
         <div/>

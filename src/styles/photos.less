@@ -3,19 +3,20 @@ div.photos {
 
   div.photo {
     float: left;
-    height:75px;
-    overflow:hidden;
-    display:block;
-    margin:0 1px 1px 0;
-    border:1px solid #fff;
-    border-radius:6px;
-    background:#eee;
+    height: 75px;
+    overflow: hidden;
+    display: block;
+    margin: 0 1px 1px 0;
+    border: 1px solid #fff;
+    border-radius: 6px;
+    background: #eee;
 
     img {
-      width:128px;
+      width: 128px;
     }
 
     transition: all .2s ease;
+
     &:hover {
       transform: scale(1.6);
       cursor: pointer;
@@ -24,57 +25,55 @@ div.photos {
 }
 
 div.open {
-  position:fixed;
-  border:10px solid #fff;
-  border-radius:30px;
-  background:#fff;
-  padding:5px;
+  position: fixed;
+  border: 10px solid #fff;
+  border-radius: 30px;
+  background: #fff;
+  padding: 5px;
   left: 0;
   right: 0;
   margin: 10px auto;
-  background-size:contain;
+  background-size: contain;
   background-repeat: no-repeat;
   z-index: 100;
 
   div.close {
-    font-size:30px;
+    font-size: 30px;
     position: absolute;
-    color:#fff;
+    color: #fff;
     right: 12px;
-    top:0;
+    top: 0;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     cursor: pointer;
   }
 
   div.left {
-    position:absolute;
+    position: absolute;
     bottom: 4px;
     font-size: 30px;
-    color:#fff;
+    color: #fff;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     cursor: pointer;
   }
 
   div.right {
-    position:absolute;
+    position: absolute;
     bottom: 4px;
-    right:4px;
+    right: 4px;
     font-size: 30px;
-    color:#fff;
+    color: #fff;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     cursor: pointer;
   }
 
   div.text {
-    font-size:13px;
     position: absolute;
-    bottom:-5px;
-    left:40px;
-    background:#fff;
-    border:1px solid #777;
-    border-radius:8px;
-    padding:5px 10px;
+    bottom: -5px;
+    left: 40px;
+    background: #fff;
+    border: 1px solid #777;
+    border-radius: 8px;
+    padding: 5px 10px;
     box-shadow: 1px 1px 2px #ccc;
   }
-
 }

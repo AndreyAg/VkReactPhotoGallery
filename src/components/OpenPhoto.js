@@ -5,16 +5,16 @@ import ArrayUtils from '../utils/arrayUtils'
 import MiscUtils from '../utils/miscUtils'
 
 import {NAVIGATE_PHOTO_LEFT, NAVIGATE_PHOTO_RIGHT} from '../constants/Photos'
-import * as photosActions from "../actions/PhotosActions"
+import * as photoActions from "../actions/PhotoActions"
 
-const OpenPhoto = ({photos, photosActions}) => {
+const OpenPhoto = ({photos, actions}) => {
 
     const navigatePhoto = direction => {
-        photosActions.navigatePhoto(photos.openPhoto.id, direction)
+        actions.navigatePhoto(photos.openPhoto.id, direction)
     }
 
     const closePhoto = () => {
-        photosActions.closePhoto()
+        actions.closePhoto()
     }
 
     useEffect(() => {
@@ -24,7 +24,7 @@ const OpenPhoto = ({photos, photosActions}) => {
             if (keyCode === 37 || keyCode === 39) {
                 navigatePhoto(keyCode === 37 ? NAVIGATE_PHOTO_LEFT : NAVIGATE_PHOTO_RIGHT)
             } else if (keyCode === 27) {
-                photosActions.closePhoto()
+                actions.closePhoto()
             }
         }
 
@@ -53,5 +53,5 @@ const OpenPhoto = ({photos, photosActions}) => {
 export default connect(state => ({
     photos: state.photos
 }), dispatch => ({
-    photosActions: bindActionCreators(photosActions, dispatch)
+    actions: bindActionCreators(photoActions, dispatch)
 }))(OpenPhoto)

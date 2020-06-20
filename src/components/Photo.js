@@ -1,10 +1,15 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 import ArrayUtils from '../utils/arrayUtils'
 
 const Photo = ({actions, item}) => {
+
+    const clickOnPhoto = useCallback(() => {
+        actions.openPhoto(item)
+    }, [item])
+
     return <div className='photo'>
         <img src={ArrayUtils.findObjectByOrder(item.sizes, 'type', ['p', 'm', 's'])?.src}
-             onClick={() => actions.openPhoto(item)}/>
+             onClick={clickOnPhoto} alt=''/>
     </div>
 }
 

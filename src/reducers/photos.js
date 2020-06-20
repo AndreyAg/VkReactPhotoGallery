@@ -5,7 +5,7 @@ const initialState = {
   items: [],
   fetching: false,
   init: false,
-  count: 30,
+  count: 50,
   offset: 0,
   isLoadedAll: false,
   openPhoto: null
