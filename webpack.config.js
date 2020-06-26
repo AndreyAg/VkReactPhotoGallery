@@ -4,7 +4,7 @@ const pathToApp = path.resolve(__dirname, 'src')
 
 module.exports = {
     mode: 'development',
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'eval-source-map',
     context: path.join(__dirname, 'src'),
     devServer: {
         contentBase: pathToApp,

@@ -1,8 +1,6 @@
 import React from 'react'
-import Photos from '../components/Photos'
+import PhotosList from '../components/PhotosList'
 
-const App = () => {
-    return <Photos/>
-}
+const App = () => <PhotosList/>
 
 export default App

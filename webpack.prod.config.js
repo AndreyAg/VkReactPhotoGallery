@@ -18,19 +18,11 @@ module.exports = {
             include: [pathToApp],
             use: {
                 loader: 'babel-loader',
-                options: {
-                    plugins: [
-                        '@babel/transform-runtime',
-                        ["@babel/plugin-proposal-decorators", { "legacy": true }],
-                        "@babel/plugin-proposal-class-properties",
-                        "@babel/plugin-proposal-optional-chaining",
-                        "transform-function-bind",
-                        ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": true}]
-                    ],
-                    presets: ["@babel/preset-env", "@babel/preset-react"]
+                query: {
+                    plugins: ['@babel/transform-runtime']
                 }
             }
-        },{
+        }, {
             test: /\.less$/,
             use: [
                 "style-loader", {
